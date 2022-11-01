@@ -16,7 +16,6 @@ jobs:
       - name: pruebas+coverage
         id: pruebas
         run: |
-          cd 202214_BaseProject
           npm run test:cov
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
