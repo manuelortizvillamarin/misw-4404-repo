@@ -13,11 +13,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-      - name: pruebas+coverage
-        id: pruebas
-        run: |
-          python -m coverage run -m unittest discover tests 
-          python -m coverage xml -i
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
