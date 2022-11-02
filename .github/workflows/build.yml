@@ -1,29 +1,37 @@
 name: Build
+
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+
   pull_request:
-    types: [opened, synchronize, reopened]
+    branches: [main]
+
 jobs:
   sonarcloud:
     name: SonarCloud
+
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [16.x]
+
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
       - name: Node.js
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - name: run tests with coverage
-      - run: |
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests with coverage
+        run: |
           npm run test:cov
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
