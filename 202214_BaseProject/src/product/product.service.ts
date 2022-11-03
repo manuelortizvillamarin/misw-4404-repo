@@ -45,4 +45,21 @@ export class ProductService {
         await this.productRepository.remove(product);
     }
 
+    async duplicate_one_update(id: string, product: ProductEntity): Promise<ProductEntity> {
+        const persistedProduct: ProductEntity = await this.productRepository.findOne({ where: { id } });
+        if (!persistedProduct)
+            throw new BusinessLogicException("The product with the given id was not found", BusinessError.NOT_FOUND);
+
+        product.id = id;
+        return await this.productRepository.save(product);
+    }
+
+    async duplicate_two_update(id: string, product: ProductEntity): Promise<ProductEntity> {
+        const persistedProduct: ProductEntity = await this.productRepository.findOne({ where: { id } });
+        if (!persistedProduct)
+            throw new BusinessLogicException("The product with the given id was not found", BusinessError.NOT_FOUND);
+
+        product.id = id;
+        return await this.productRepository.save(product);
+    }
 }
